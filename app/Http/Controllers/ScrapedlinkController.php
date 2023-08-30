@@ -40,24 +40,31 @@ class ScrapedlinkController extends Controller
         {
             
             $data = $request->validate([
-                'url' => 'required|url:http,https',  
-                'title' => 'required',
-                'description' => 'required',
-                'price' => 'required',
+                'url' => 'required|url:http,https',
             ]);
             
 
             $url=$request->url;
             $response = Http::get($url);
             $crawler = new Crawler($response->body(), $url);
-            
-           $data['title'] = $crawler->filter($request->title)->text();
+            if ($request->title) {
+                $data['title'] = $crawler->filter($request->title)->text();
+            }
+            if ($request->description) {
+                $data['description'] = $crawler->filter($request->description)->text();
+            }
+            if ($request->price) {
+                $data['price'] = $crawler->filter($request->price)->text();
+            }
+            if ($request->image) {
+                $data['image']=$crawler->filter($request->image)->attr('src');
+            }
 
-           $data['description'] = $crawler->filter($request->description)->text();
+          
 
-           $data['price'] = $crawler->filter($request->price)->text();
+           
 
-           $data['image']=$crawler->filter($request->image)->attr('src');
+          
             
         
         }
