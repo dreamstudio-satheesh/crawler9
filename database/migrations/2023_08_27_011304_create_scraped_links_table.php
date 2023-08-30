@@ -11,13 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('scraped_links', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('username')->unique();
-            $table->string('password');
-            $table->rememberToken();
+            $table->string('url')->unique();
+            $table->longText('content')->nullable();
+            $table->unsignedBigInteger('website_id');
             $table->timestamps();
+
+            // Foreign key constraints
+            $table->foreign('website_id')->references('id')->on('websites')->onDelete('cascade');
         });
     }
 
@@ -26,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('scraped_links');
     }
 };
