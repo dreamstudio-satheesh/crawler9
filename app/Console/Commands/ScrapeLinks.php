@@ -10,7 +10,7 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class ScrapeLinks extends Command
 {
-    protected $signature = 'scrape:links {id} {url} {page}';
+    protected $signature = 'scraped:links {id} {url} {page}';
     protected $description = 'Scrape all links from a website';
 
     public function __construct()

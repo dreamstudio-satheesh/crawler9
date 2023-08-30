@@ -33,6 +33,6 @@ class Scrapelink implements ShouldQueue
      */
     public function handle(): void
     {
-        Artisan::call('scrape:links', $this->data);
+        Artisan::call('scraped:links', $this->data);
     }
 }
