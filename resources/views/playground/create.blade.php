@@ -38,7 +38,13 @@
 
                             <div class="form-group">
                                 <label for="title" class="form-label">Title CSS Selector</label>
-                                <input type="text" name="title" class="form-control" placeholder="h1.product-name" value="{{ old('title') }}" >
+                                <input type="text" name="title" class="form-control" placeholder="h1.product-name" 
+                                @if ($reuest->title)
+                                value="{{ $reuest->title }}" >
+                                @else
+                                value="{{ old('title') }}" >
+                                @endif
+                                
                             </div>
 
                             <div class="form-group">
