@@ -34,8 +34,8 @@
                             <div class="form-group">
                                 <label for="title" class="form-label">Product page URL</label>
                                 <input type="text" name="url" class="form-control" placeholder="https://example.com/" 
-                                @if ($request->url)
-                                value="{{ $request->url }}" >
+                                @if (request()->get('url') )
+                                value="{{ request()->get('url') }}" >
                                 @else
                                 value="{{ old('url') }}" >
                                 @endif
@@ -45,8 +45,8 @@
                             <div class="form-group">
                                 <label for="title" class="form-label">Title CSS Selector</label>
                                 <input type="text" name="title" class="form-control" placeholder="h1.product-name" 
-                                @if ($request->title)
-                                value="{{ $request->title }}" >
+                                @if (request()->get('title') )
+                                value="{{ request()->get('title') }}" >
                                 @else
                                 value="{{ old('title') }}" >
                                 @endif
