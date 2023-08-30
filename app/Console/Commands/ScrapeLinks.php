@@ -32,40 +32,43 @@ class ScrapeLinks extends Command
             $url = array_shift($queue);
 
             if (!in_array($url, $visited)) {
-                $response = Http::get($url);
-                $crawler = new Crawler($response->body(), $url); // Pass the base URL to the constructor
+                try {
+                    $response = Http::get($url);
+                    $crawler = new Crawler($response->body(), $url); // Pass the base URL to the constructor
 
-                $links = $crawler->filter('a')->links();
+                    $links = $crawler->filter('a')->links();
 
-                foreach ($links as $link) {
-                    $href = $link->getUri();
-                    $parsedUrl = parse_url($href);
-                    $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg']; // Add more if needed
+                    foreach ($links as $link) {
+                        $href = $link->getUri();
+                        $parsedUrl = parse_url($href);
+                        $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg']; // Add more if needed
 
-                    if (isset($parsedUrl['host']) && $parsedUrl['host'] === $domain) {
-                        if (!isset($parsedUrl['scheme'])) {
-                            // Handle relative URLs by constructing an absolute URL
-                            $href = $url . (isset($parsedUrl['path']) ? $parsedUrl['path'] : '') . (isset($parsedUrl['query']) ? '?' . $parsedUrl['query'] : '');
-                        }
+                        if (isset($parsedUrl['host']) && $parsedUrl['host'] === $domain) {
+                            if (!isset($parsedUrl['scheme'])) {
+                                // Handle relative URLs by constructing an absolute URL
+                                $href = $url . (isset($parsedUrl['path']) ? $parsedUrl['path'] : '') . (isset($parsedUrl['query']) ? '?' . $parsedUrl['query'] : '');
+                            }
 
-                        // Check if the URL extension is in the imageExtensions array
-                        $urlExtension = pathinfo($parsedUrl['path'], PATHINFO_EXTENSION);
-                        if (!in_array(strtolower($urlExtension), $imageExtensions) && !Str::contains($parsedUrl['path'], '#')) {
-                            $queue[] = $href;
+                            // Check if the URL extension is in the imageExtensions array
+                            $urlExtension = pathinfo($parsedUrl['path'], PATHINFO_EXTENSION);
+                            if (!in_array(strtolower($urlExtension), $imageExtensions) && !Str::contains($parsedUrl['path'], '#')) {
+                                $queue[] = $href;
+                            }
                         }
                     }
+
+                    $visited[] = $url;
+
+                    if (strpos($url, $productsLink) !== false) {
+                        $this->storeLinks($url, $id, $response->body()); // Store the link in the database
+
+                        $this->info("Links found on $startingUrl: $url");
+                    } else {
+                        $this->info("Links not found on $startingUrl : $url");
+                    }
+                } catch (\Throwable $th) {
+                    //throw $th;
                 }
-
-                $visited[] = $url;
-
-                if (strpos($url, $productsLink) !== false) {
-                    $this->storeLinks($url, $id, $response->body()); // Store the link in the database
-
-                    $this->info("Links found on $startingUrl: $url");
-                } else {
-                    $this->info("Links not found on $startingUrl : $url");
-                }
-
             }
             sleep(0.5);
         }
