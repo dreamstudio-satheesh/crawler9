@@ -38,22 +38,22 @@
 
                             <div class="form-group">
                                 <label for="title" class="form-label">Title CSS Selector</label>
-                                <input type="text" name="title" class="form-control" placeholder="h1.product-name" >
+                                <input type="text" name="title" class="form-control" placeholder="h1.product-name" value="{{ old('title') }} >
                             </div>
 
                             <div class="form-group">
                                 <label for="title" class="form-label">Description Selector</label>
-                                <input type="text" name="description" class="form-control" placeholder="h1.product-name" >
+                                <input type="text" name="description" class="form-control" value="{{ old('description') }}>
                             </div>
 
                             <div class="form-group">
                                 <label for="title" class="form-label">Price CSS Selector</label>
-                                <input type="text" name="price" class="form-control" placeholder="h1.product-name" >
+                                <input type="text" name="price" class="form-control" value="{{ old('price') }}>
                             </div>
 
                             <div class="form-group">
                                 <label for="title" class="form-label">Image CSS Selector</label>
-                                <input type="text" name="image" class="form-control" placeholder=".image" >
+                                <input type="text" name="image" class="form-control" value="{{ old('image') }} >
                             </div>
 
 
