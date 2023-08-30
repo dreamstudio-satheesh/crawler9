@@ -43,7 +43,7 @@ class ScrapeLinks extends Command
                         $parsedUrl = parse_url($href);
                         $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg']; // Add more if needed
 
-                        if (isset($parsedUrl['host']) && $parsedUrl['host'] === $domain && isset($parsedUrl['path']) ) {
+                        if (isset($parsedUrl['host']) && $parsedUrl['host'] === $domain && array_key_exists('path',$parsedUrl) ) {
                             if (!isset($parsedUrl['scheme'])) {
                                 // Handle relative URLs by constructing an absolute URL
                                 $href = $url . (isset($parsedUrl['path']) ? $parsedUrl['path'] : '') . (isset($parsedUrl['query']) ? '?' . $parsedUrl['query'] : '');
