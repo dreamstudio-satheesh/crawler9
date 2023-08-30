@@ -89,13 +89,22 @@ class GrabLinks extends Command
         // Find all links on the page
         $crawler->filter('a')->each(function (Crawler $node) use (&$visited, $depth, $id, $url) {
             $relativeLink = $node->attr('href');
+
             // Make the URL absolute if it is relative
             $link = $this->resolveUrl($relativeLink, $url);
-            $this->crawlPage($link, $visited, $depth + 1, $link, $id);
+
+            // Only proceed if the link belongs to example.com
+            if ($this->isExampleDomain($link,$url)) {
+                $this->crawlPage($link, $visited, $depth + 1, $link, $id);
+            }
         });
     }
 
-    // ... (other parts of the code)
+    private function isExampleDomain($url)
+    {
+        $parsedUrl = parse_url($url);
+        return isset($parsedUrl['host']) && $parsedUrl['host'] === $url;
+    }
 
     private function resolveUrl($relativeUrl, $baseUrl)
     {
