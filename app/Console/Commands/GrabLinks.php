@@ -23,7 +23,6 @@ class GrabLinks extends Command
 
     public function handle()
     {
-        
         $id = $this->argument('id');
         $initialUrl = $this->argument('url');
         $pagelink = $this->argument('page');
@@ -31,10 +30,10 @@ class GrabLinks extends Command
 
         $visited = [];
 
-        $this->crawlPage($initialUrl, $visited, 1,$pagelink,$id);
+        $this->crawlPage($initialUrl, $visited, 1, $pagelink, $id);
     }
 
-    private function crawlPage($url, &$visited, $depth,$pagelink,$id)
+    private function crawlPage($url, &$visited, $depth, $pagelink, $id)
     {
         // Check depth limit
         if ($depth > 4) {
@@ -51,19 +50,21 @@ class GrabLinks extends Command
 
         try {
             // Fetching the HTML content
-            $htmlContent = $this->client->get($url)->getBody()->getContents();
-            
+            $htmlContent = $this->client
+                ->get($url)
+                ->getBody()
+                ->getContents();
+
             // Introduce rate limiting (1 request per second)
             sleep(1);
-
         } catch (RequestException $e) {
             $this->error("Failed to crawl URL $url: {$e->getMessage()}");
 
             // Log the status code if available
             if ($e->hasResponse()) {
-                $this->error("HTTP Status Code: " . $e->getResponse()->getStatusCode());
+                $this->error('HTTP Status Code: ' . $e->getResponse()->getStatusCode());
             }
-            
+
             return;
         }
 
@@ -75,15 +76,35 @@ class GrabLinks extends Command
             ScrapedLink::insertOrIgnore([
                 'website_id' => $id,
                 'url' => $url,
-                'content' =>$htmlContent,
+                'content' => $htmlContent,
             ]);
-           
         }
 
-        // Find all links on the page
+        /*  // Find all links on the page
         $crawler->filter('a')->each(function (Crawler $node) use (&$visited, $depth,$id) {
             $link = $node->link()->getUri();
             $this->crawlPage($link, $visited, $depth + 1,$link,$id);
+        }); */
+
+        // Find all links on the page
+        $crawler->filter('a')->each(function (Crawler $node) use (&$visited, $depth, $id, $url) {
+            $relativeLink = $node->attr('href');
+            // Make the URL absolute if it is relative
+            $link = $this->resolveUrl($relativeLink, $url);
+            $this->crawlPage($link, $visited, $depth + 1, $link, $id);
         });
+    }
+
+    // ... (other parts of the code)
+
+    private function resolveUrl($relativeUrl, $baseUrl)
+    {
+        // If the URL is already absolute, return it as is
+        if (filter_var($relativeUrl, FILTER_VALIDATE_URL)) {
+            return $relativeUrl;
+        }
+
+        // Otherwise, resolve it against the base URL
+        return rtrim($baseUrl, '/') . '/' . ltrim($relativeUrl, '/');
     }
 }
