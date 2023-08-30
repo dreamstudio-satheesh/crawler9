@@ -41,11 +41,9 @@ class ScrapeLinks extends Command
                     foreach ($links as $link) {
                         $href = $link->getUri();
                         $parsedUrl = parse_url($href);
-                        $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg']; // Add more if needed
+                        $imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'svg']; // Add more if needed 
 
-                       /*  $parsedUrl['path'] = isset($array['path']) ? $array['path'] : 'Default';
-
-                        if (isset($parsedUrl['host']) && $parsedUrl['host'] === $domain  ) {
+                        if (isset($parsedUrl['host']) && $parsedUrl['host'] === $domain && isset($parsedUrl['path'])) {
                             if (!isset($parsedUrl['scheme'])) {
                                 // Handle relative URLs by constructing an absolute URL
                                 $href = $url . (isset($parsedUrl['path']) ? $parsedUrl['path'] : '') . (isset($parsedUrl['query']) ? '?' . $parsedUrl['query'] : '');
@@ -56,7 +54,7 @@ class ScrapeLinks extends Command
                             if (!in_array(strtolower($urlExtension), $imageExtensions) && !Str::contains($parsedUrl['path'], '#')) {
                                 $queue[] = $href;
                             }
-                        } */
+                        }
                     }
 
                     $visited[] = $url;
