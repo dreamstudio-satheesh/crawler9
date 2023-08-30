@@ -14,6 +14,9 @@
                     </div>
 
                     <div class="card-body">
+                        <pre>
+                            {{ print_r($data) }}
+                        </pre>
                         <form class="form" action="{{ route('playground.store') }}" method="POST" >
                             @csrf
                             @if ($errors->any())
@@ -46,6 +49,11 @@
                             <div class="form-group">
                                 <label for="title" class="form-label">Price CSS Selector</label>
                                 <input type="text" name="price" class="form-control" placeholder="h1.product-name" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="title" class="form-label">Image CSS Selector</label>
+                                <input type="text" name="image" class="form-control" placeholder=".image" required>
                             </div>
 
 

@@ -33,6 +33,8 @@ class ScrapedlinkController extends Controller
     public function play(Request $request)
     {
        $title='';
+
+       $data=array();
        
         if ($request->url)
         {
@@ -49,19 +51,18 @@ class ScrapedlinkController extends Controller
             $response = Http::get($url);
             $crawler = new Crawler($response->body(), $url);
             
-           $data['title'] = $crawler->filter('#features-tab > div > div > div > div.col-lg-7.product-area-wrap > div > h1')->text();
+           $data['title'] = $crawler->filter($request->title)->text();
 
-           $data['description'] = $crawler->filter('#desc_tab > div > div > div > div > p')->text();
+           $data['description'] = $crawler->filter($request->description)->text();
 
-           $data['price'] = $crawler->filter('#features-tab > div > div > div > div.col-lg-7.product-area-wrap > div > div.product-info-warranty > div > div.product-prices.product-row > div > div > strike > span > h2')->text();
+           $data['price'] = $crawler->filter($request->price)->text();
 
-           $data['image']=$crawler->filter('#sync1 > div:nth-child(2) > div > img')->attr('src');
+           $data['image']=$crawler->filter($request->image)->attr('src');
             
-           return $data;
         
         }
         
-            return view('playground.create',compact('title'));
+            return view('playground.create',compact('title','data'));
         
     }
 }
