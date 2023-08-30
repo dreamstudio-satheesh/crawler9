@@ -17,7 +17,7 @@
                         <pre>
                             {{ print_r($data) }}
                         </pre>
-                        <form class="form" action="{{ route('playground.store') }}" method="POST" >
+                        <form class="form" action="{{ route('playground.store') }}" method="POST">
                             @csrf
                             @if ($errors->any())
                                 <div class="mb-3">
@@ -33,45 +33,46 @@
 
                             <div class="form-group">
                                 <label for="title" class="form-label">Product page URL</label>
-                                <input type="text" name="url" class="form-control" placeholder="https://example.com/" 
-                                @if (request()->get('url') )
-                                value="{{ request()->get('url') }}" >
+                                <input type="text" name="url" class="form-control" placeholder="https://example.com/"
+                                    @if (request()->get('url')) value="{{ request()->get('url') }}" >
                                 @else
-                                value="{{ old('url') }}" >
-                                @endif
-                                required>
+                                value="{{ old('url') }}" > @endif
+                                    required>
                             </div>
 
                             <div class="form-group">
                                 <label for="title" class="form-label">Title CSS Selector</label>
-                                <input type="text" name="title" class="form-control" placeholder="h1.product-name" 
-                                @if (request()->get('title') )
-                                value="{{ request()->get('title') }}" >
-                                @else
-                                value="{{ old('title') }}" >
-                                @endif
-                                
-                            </div>
+                                <input type="text" name="title" class="form-control" placeholder="h1.product-name"
+                                    @if (request()->get('title')) value="{{ request()->get('title') }}" >
+                                    @else  value="{{ old('title') }}" > @endif
+                                    </div>
 
-                            <div class="form-group">
-                                <label for="title" class="form-label">Description Selector</label>
-                                <input type="text" name="description" class="form-control" value="{{ old('description') }}">
-                            </div>
+                                <div class="form-group">
+                                    <label for="title" class="form-label">Description Selector</label>
+                                    <input type="text" name="description" class="form-control"
+                                        @if (request()->get('description')) value="{{ request()->get('description') }}" >
+                                        @else  value="{{ old('description') }}" > @endif
+                                        </div>
 
-                            <div class="form-group">
-                                <label for="title" class="form-label">Price CSS Selector</label>
-                                <input type="text" name="price" class="form-control" value="{{ old('price') }}">
-                            </div>
+                                    <div class="form-group">
+                                        <label for="title" class="form-label">Price CSS Selector</label>
+                                        <input type="text" name="price" class="form-control"
+                                            @if (request()->get('price')) value="{{ request()->get('price') }}" >
+                                            @else  value="{{ old('price') }}" > @endif
+                                            </div>
 
-                            <div class="form-group">
-                                <label for="title" class="form-label">Image CSS Selector</label>
-                                <input type="text" name="image" class="form-control" value="{{ old('image') }}" >
-                            </div>
+                                        <div class="form-group">
+                                            <label for="title" class="form-label">Image CSS Selector</label>
+                                            <input type="text" name="image" class="form-control"
+                                                @if (request()->get('image')) value="{{ request()->get('image') }}" >
+                                                @else  value="{{ old('image') }}" > @endif
+                                                </div>
 
 
-                            <div class="form-group justify-content-end">
-                                <button type="submit" class="btn btn-primary btn-default">Grab Product</button>
-                            </div>
+                                            <div class="form-group justify-content-end">
+                                                <button type="submit" class="btn btn-primary btn-default">Grab
+                                                    Product</button>
+                                            </div>
 
 
                         </form>
