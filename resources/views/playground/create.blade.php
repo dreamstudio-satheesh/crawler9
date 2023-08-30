@@ -33,7 +33,13 @@
 
                             <div class="form-group">
                                 <label for="title" class="form-label">Product page URL</label>
-                                <input type="text" name="url" class="form-control" placeholder="https://example.com/" required>
+                                <input type="text" name="url" class="form-control" placeholder="https://example.com/" 
+                                @if ($reuest->title)
+                                value="{{ $reuest->url }}" >
+                                @else
+                                value="{{ old('url') }}" >
+                                @endif
+                                required>
                             </div>
 
                             <div class="form-group">
