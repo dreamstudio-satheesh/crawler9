@@ -14,7 +14,32 @@
 
                     <div class="card-body">
 
-                        @if (count($products))
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12">
+                                    Products list
+                                </div>
+                                @if (count($products))
+
+                                @foreach ($products as $item)
+                                <div class="col-md-6 col-xl-3">
+                                    <div class="card mb-4">
+                                        <img class="card-img-top" src="assets/img/elements/cc1.jpg">
+                                        <div class="card-body">
+                                            <h5 class="card-title text-primary">{{ $item->name }}</h5>
+                                            <p class="card-text pb-3">{{ $item->description }} </p>
+                                            <a href="#" class="btn btn-outline-primary">{{ $item->price }}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                                @endforeach
+
+                             
+                         
+                            </div>
+                        </div>
+
+                        
                             <table id="basic-data-table" class="table nowrap" style="width:100%">
                                 <thead>
                                     <tr>
