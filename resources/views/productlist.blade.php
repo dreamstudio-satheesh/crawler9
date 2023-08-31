@@ -40,29 +40,6 @@
                         </div>
 
                         
-                            <table id="basic-data-table" class="table nowrap" style="width:100%">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">ID</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Price</th>
-                                        <th scope="col">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($products as $item)
-                                        <tr>
-                                            <th scope="row"><a href="#"
-                                                    class="fw-semibold">#{{ $item->id }}</a>
-                                            </th>
-                                            <td>{{ $item->name }}</td>
-                                            <td>{{ $item->price }}</td>
-                                            <td></td>
-                                        </tr>
-                                    @endforeach
-
-                                </tbody>
-                            </table>
                         @else
                             <h1>Products  not found</h1>
                             <br>
