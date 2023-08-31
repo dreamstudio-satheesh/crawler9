@@ -27,7 +27,7 @@
                                         <img class="card-img-top" src="assets/img/elements/cc1.jpg">
                                         <div class="card-body">
                                             <h5 class="card-title text-primary">{{ $item->name }}</h5>
-                                            <p class="card-text pb-3">{{ $item->description }} </p>
+                                            <p class="card-text pb-3">{{ str_limit($item->description , 100) }} </p>
                                             <a href="#" class="btn btn-outline-primary">{{ $item->price }}</a>
                                         </div>
                                     </div>
