@@ -34,7 +34,7 @@ class ScrapeLinks extends Command
             if (!in_array($url, $visited)) {
                 try {
                     $response = Http::get($url);
-                    sleep(0.5);
+                      // sleep(0.5);
                     $crawler = new Crawler($response->body(), $url); // Pass the base URL to the constructor
 
                     $links = $crawler->filter('a')->links();
