@@ -11,9 +11,9 @@
                     <div class="card-header card-header-border-bottom d-flex justify-content-between">
                         <h2>websites</h2>
 
-                        <a href="{{ url('websites/create') }}" class="btn btn-outline-primary">
+                        {{-- <a href="{{ url('websites/create') }}" class="btn btn-outline-primary">
                             <i class=" mdi mdi-plus"></i> Create
-                        </a>
+                        </a> --}}
                     </div>
 
                     <div class="card-body">
@@ -42,12 +42,12 @@
                                                     href="{{ url('product_list') }}/{{ $website->id }}">Products</a>
                                             </div>
                                             <div class="btn-group mb-3">
-                                                <form action="{{ route('websites.destroy', $website->id) }}" method="POST">
+                                                {{-- <form action="{{ route('websites.destroy', $website->id) }}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit"
                                                         class="mb-1 btn btn-sm btn-danger">Remove</button>
-                                                </form>
+                                                </form> --}}
                                             </div>
                     </div>
                     </td>
