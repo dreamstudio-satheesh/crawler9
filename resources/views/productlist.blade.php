@@ -24,7 +24,7 @@
                                 @foreach ($products as $item)
                                 <div class="col-md-6 col-xl-3">
                                     <div class="card mb-4">
-                                        <img class="card-img-top" src="assets/img/elements/cc1.jpg">
+                                        <img class="card-img-top" src="{{ url()}}/{{ $item->image }}">
                                         <div class="card-body">
                                             <h5 class="card-title text-primary">{{ $item->name }}</h5>
                                             <p class="card-text pb-3">{{ substr($item->description , 0, 100) }} </p>
