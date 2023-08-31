@@ -63,9 +63,9 @@ class ScrapeLinks extends Command
                     if (strpos($url, $productsLink) !== false) {
                         $this->storeLinks($url, $id, $response->body()); // Store the link in the database
 
-                        $this->info("Links found on $startingUrl: $url");
+                        $this->info("Links found on $url");
                     } else {
-                        $this->info("Links not found on $startingUrl : $url");
+                        $this->info("Links not found on  $url");
                     }
                 } catch (\Throwable $th) {
                     //throw $th;
