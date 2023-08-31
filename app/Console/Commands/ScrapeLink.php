@@ -8,7 +8,7 @@ use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 use Symfony\Component\DomCrawler\Crawler;
 
-class ScrapeLinks extends Command
+class ScrapeLink extends Command
 {
     protected $signature = 'scrape:link {id} {url} {page}';
     protected $description = 'Scrape all links from a website';
